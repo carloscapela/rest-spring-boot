@@ -1,7 +1,7 @@
 package br.com.restspring.api.getway.exceptions.handler;
 
 import br.com.restspring.api.getway.exceptions.ExceptionResponse;
-import br.com.restspring.api.getway.exceptions.UnsupportedMathOperationException;
+import br.com.restspring.api.getway.exceptions.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -30,9 +30,9 @@ class CustomizedResponseEntityExceptionHandler extends ResponseEntityExceptionHa
         return new ResponseEntity<>(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @ExceptionHandler(UnsupportedMathOperationException.class)
+    @ExceptionHandler(ResourceNotFoundException.class)
     public final
-    ResponseEntity<ExceptionResponse> handleBadRequestExceptions(
+    ResponseEntity<ExceptionResponse> handleNotFoundExceptions(
             Exception ex, WebRequest request
     ) {
         ExceptionResponse exceptionResponse = new ExceptionResponse(
@@ -41,6 +41,6 @@ class CustomizedResponseEntityExceptionHandler extends ResponseEntityExceptionHa
                 request.getDescription(false)
         );
 
-        return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
     }
 }
