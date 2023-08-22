@@ -1,8 +1,10 @@
 package br.com.restspring.api.getway.services;
 
 import br.com.restspring.api.getway.data.vo.v1.PersonVO;
+import br.com.restspring.api.getway.data.vo.v2.PersonVOV2;
 import br.com.restspring.api.getway.exceptions.ResourceNotFoundException;
 import br.com.restspring.api.getway.mapper.DozerMapper;
+import br.com.restspring.api.getway.mapper.custom.PersonMapper;
 import br.com.restspring.api.getway.models.Person;
 import br.com.restspring.api.getway.repositories.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,9 @@ public class PersonService {
 
     @Autowired
     PersonRepository repository;
+
+    @Autowired
+    PersonMapper mapper;
 
     public List<PersonVO> findAll() {
         logger.info("Buscando pessoas List.");
@@ -36,6 +41,13 @@ public class PersonService {
 
         var entity = DozerMapper.parseObject(person, Person.class);
         return DozerMapper.parseObject(repository.save(entity), PersonVO.class);
+    }
+
+    public PersonVOV2 createV2(PersonVOV2 person) {
+        logger.info("Criando pessoa V2.");
+
+        var entity = mapper.convertVoToEntity(person);
+        return mapper.convertEntityToVo(repository.save(entity));
     }
 
     public PersonVO update(Long id, PersonVO person) {

@@ -25,5 +25,4 @@ public class DozerMapper {
 
         return destinationObjects;
     }
-
 }
