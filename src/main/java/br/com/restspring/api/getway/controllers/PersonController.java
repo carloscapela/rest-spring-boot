@@ -1,7 +1,6 @@
 package br.com.restspring.api.getway.controllers;
 
 import br.com.restspring.api.getway.data.vo.v1.PersonVO;
-import br.com.restspring.api.getway.data.vo.v2.PersonVOV2;
 import br.com.restspring.api.getway.services.PersonService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -86,18 +85,9 @@ public class PersonController {
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
             }
     )
-    public PersonVO create (@RequestBody PersonVO person){
-        return service.create(person);
+    public PersonVO create (@RequestBody PersonVO personVO){
+        return service.create(personVO);
     }
-
-//    @PostMapping(
-//            value = "/v2",
-//            produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
-//            consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
-//    )
-//    public PersonVOV2 createV2 (@RequestBody PersonVOV2 person){
-//        return service.createV2(person);
-//    }
 
     @PutMapping(
             value = "/{id}",
@@ -117,8 +107,8 @@ public class PersonController {
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
             }
     )
-    public PersonVO update(@RequestBody PersonVO person) {
-        return service.update(person);
+    public PersonVO update(@RequestBody PersonVO personVO) {
+        return service.update(personVO);
     }
 
     @DeleteMapping(value = "/{id}")

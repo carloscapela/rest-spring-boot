@@ -72,13 +72,6 @@ public class BookService {
         return vo;
     }
 
-//    public PersonVOV2 createV2(PersonVOV2 person) {
-//        logger.info("Criando pessoa V2.");
-//
-//        var entity = mapper.convertVoToEntity(person);
-//        return mapper.convertEntityToVo(repository.save(entity));
-//    }
-
     public BookVO update(BookVO bookVO) {
         logger.info("Atualizando pessoa.");
 

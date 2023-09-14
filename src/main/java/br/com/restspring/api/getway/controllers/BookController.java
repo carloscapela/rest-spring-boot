@@ -1,7 +1,6 @@
 package br.com.restspring.api.getway.controllers;
 
 import br.com.restspring.api.getway.data.vo.v1.BookVO;
-import br.com.restspring.api.getway.data.vo.v1.PersonVO;
 import br.com.restspring.api.getway.services.BookService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -34,7 +33,7 @@ public class BookController {
             tags = {"Livro"},
             responses = {
                     @ApiResponse(description = "Success", responseCode = "200",
-                            content = @Content(schema = @Schema(implementation = PersonVO.class))),
+                            content = @Content(schema = @Schema(implementation = BookVO.class))),
                     @ApiResponse(description = "No Content", responseCode = "204", content = @Content),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
                     @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
@@ -56,7 +55,7 @@ public class BookController {
                         content = {
                             @Content(
                                     mediaType = "application/json",
-                                    array = @ArraySchema(schema = @Schema(implementation = PersonVO.class))
+                                    array = @ArraySchema(schema = @Schema(implementation = BookVO.class))
                             )
                     }),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
@@ -79,7 +78,7 @@ public class BookController {
             tags = {"Livro"},
             responses = {
                     @ApiResponse(description = "Success", responseCode = "201",
-                            content = @Content(schema = @Schema(implementation = PersonVO.class))),
+                            content = @Content(schema = @Schema(implementation = BookVO.class))),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
                     @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
                     @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
@@ -101,7 +100,7 @@ public class BookController {
             tags = {"Livro"},
             responses = {
                     @ApiResponse(description = "Updated", responseCode = "200",
-                            content = @Content(schema = @Schema(implementation = PersonVO.class))),
+                            content = @Content(schema = @Schema(implementation = BookVO.class))),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
                     @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
                     @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
