@@ -1,12 +1,16 @@
 package br.com.restspring.api.getway.services;
 
+import br.com.restspring.api.getway.controllers.BookController;
 import br.com.restspring.api.getway.controllers.PersonController;
+import br.com.restspring.api.getway.data.vo.v1.BookVO;
 import br.com.restspring.api.getway.data.vo.v1.PersonVO;
 import br.com.restspring.api.getway.data.vo.v2.PersonVOV2;
 import br.com.restspring.api.getway.exceptions.ResourceNotFoundException;
 import br.com.restspring.api.getway.mapper.DozerMapper;
 import br.com.restspring.api.getway.mapper.custom.PersonMapper;
+import br.com.restspring.api.getway.models.Book;
 import br.com.restspring.api.getway.models.Person;
+import br.com.restspring.api.getway.repositories.BookRepository;
 import br.com.restspring.api.getway.repositories.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,33 +22,33 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Service
-public class PersonService {
-    private final Logger logger = Logger.getLogger(PersonService.class.getName());
+public class BookService {
+    private final Logger logger = Logger.getLogger(BookService.class.getName());
 
     @Autowired
-    PersonRepository repository;
+    BookRepository repository;
 
     @Autowired
     PersonMapper mapper;
 
-    public List<PersonVO> findAll() {
+    public List<BookVO> findAll() {
         logger.info("Buscando pessoas List.");
-        var persons = DozerMapper.parseListObjects(repository.findAll(), PersonVO.class);
-        persons.stream()
+        var books = DozerMapper.parseListObjects(repository.findAll(), BookVO.class);
+        books.stream()
                 .forEach(p -> p.add(
                         linkTo(
                                 methodOn(PersonController.class).findById(p.getKey())
                         ).withSelfRel()
                 ));
-        return persons;
+        return books;
     }
 
-    public PersonVO findById(Long id) {
-        logger.info("Buscando pessoa.");
+    public BookVO findById(Long id) {
+        logger.info("Buscando livro.");
         var entity = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Nada encontrado"));
 
-        PersonVO vo = DozerMapper.parseObject(entity, PersonVO.class);
+        BookVO vo = DozerMapper.parseObject(entity, BookVO.class);
         vo.add(
                 linkTo(
                         methodOn(PersonController.class).findById(id)
@@ -53,12 +57,12 @@ public class PersonService {
         return vo;
     }
 
-    public PersonVO create(PersonVO person) {
+    public BookVO create(BookVO book) {
         logger.info("Criando pessoa.");
 
-        var entity = DozerMapper.parseObject(person, Person.class);
+        var entity = DozerMapper.parseObject(book, Book.class);
 
-        PersonVO vo = DozerMapper.parseObject(repository.save(entity), PersonVO.class);
+        BookVO vo = DozerMapper.parseObject(repository.save(entity), BookVO.class);
         vo.add(
                linkTo(
                         methodOn(PersonController.class).findById(vo.getKey())
@@ -68,35 +72,36 @@ public class PersonService {
         return vo;
     }
 
-    public PersonVOV2 createV2(PersonVOV2 person) {
-        logger.info("Criando pessoa V2.");
+//    public PersonVOV2 createV2(PersonVOV2 person) {
+//        logger.info("Criando pessoa V2.");
+//
+//        var entity = mapper.convertVoToEntity(person);
+//        return mapper.convertEntityToVo(repository.save(entity));
+//    }
 
-        var entity = mapper.convertVoToEntity(person);
-        return mapper.convertEntityToVo(repository.save(entity));
-    }
-
-    public PersonVO update(PersonVO person) {
+    public BookVO update(BookVO bookVO) {
         logger.info("Atualizando pessoa.");
 
-        var entity = repository.findById(person.getKey())
+        var entity = repository.findById(bookVO.getKey())
                 .orElseThrow(() -> new ResourceNotFoundException("Nada encontrado"));
 
-        entity.setFirstName(person.getFirstName());
-        entity.setLastName(person.getLastName());
-        entity.setAddress(person.getAddress());
-        entity.setGender(person.getGender());
+        entity.setTitle(bookVO.getTitle());
+        entity.setAuthor(bookVO.getAuthor());
+        entity.setLaunch_date(bookVO.getLaunch_date());
+        entity.setPrice(bookVO.getPrice());
 
-        PersonVO vo = DozerMapper.parseObject(repository.save(entity), PersonVO.class);
+        BookVO vo = DozerMapper.parseObject(repository.save(entity), BookVO.class);
         vo.add(
                 linkTo(
-                        methodOn(PersonController.class).findById(vo.getKey())
+                        methodOn(BookController.class).findById(vo.getKey())
                 ).withSelfRel()
         );
         return vo;
     }
 
     public void delete(Long id) {
-        Person person = repository.findById(id)
+        Book person = repository
+                .findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Nada encontrado"));
 
         repository.delete(person);

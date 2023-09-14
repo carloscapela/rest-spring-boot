@@ -3,17 +3,20 @@ package br.com.restspring.api.getway.data.vo.v1;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import jakarta.persistence.*;
+import com.github.dozermapper.core.Mapping;
+import org.springframework.hateoas.RepresentationModel;
 
 import java.io.Serial;
 import java.io.Serializable;
 
-@JsonPropertyOrder({"id", "address", "firstName", "lastName", "gender"})
-public class PersonVO implements Serializable {
+@JsonPropertyOrder({"id", "key", "address", "firstName", "lastName", "gender"})
+public class PersonVO extends RepresentationModel<PersonVO> implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    private Long id;
+    @JsonProperty("id")
+    @Mapping("id")
+    private Long key;
 
     @JsonProperty("first_name")
     private String firstName;
@@ -23,18 +26,14 @@ public class PersonVO implements Serializable {
 
     private String address;
 
-    @JsonIgnore
+    //@JsonIgnore
     private String gender;
 
     public PersonVO() {}
 
-    public Long getId() {
-        return id;
-    }
+    public Long getKey() { return key; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public void setKey(Long key) { this.key = key; }
 
     public String getFirstName() {
         return firstName;

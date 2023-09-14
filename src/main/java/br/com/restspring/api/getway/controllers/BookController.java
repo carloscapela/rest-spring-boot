@@ -1,8 +1,8 @@
 package br.com.restspring.api.getway.controllers;
 
+import br.com.restspring.api.getway.data.vo.v1.BookVO;
 import br.com.restspring.api.getway.data.vo.v1.PersonVO;
-import br.com.restspring.api.getway.data.vo.v2.PersonVOV2;
-import br.com.restspring.api.getway.services.PersonService;
+import br.com.restspring.api.getway.services.BookService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -17,21 +17,21 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/person/v1")
-@Tag(name = "People", description = "Endpoint for managing people")
-public class PersonController {
+@RequestMapping("/api/books/v1")
+@Tag(name = "Livros", description = "Endpoints para livros")
+public class BookController {
 
     @Autowired
-    private PersonService service;
+    private BookService service;
 
     @GetMapping(
             value = "/{id}",
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
     )
     @Operation(
-            summary = "Busca uma pessoa",
-            description = "Busca uma pessoa",
-            tags = {"People"},
+            summary = "Busca uma livro",
+            description = "Busca uma livro",
+            tags = {"Livro"},
             responses = {
                     @ApiResponse(description = "Success", responseCode = "200",
                             content = @Content(schema = @Schema(implementation = PersonVO.class))),
@@ -42,15 +42,15 @@ public class PersonController {
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
             }
     )
-    public PersonVO findById (@PathVariable(value = "id") Long id){
+    public BookVO findById (@PathVariable(value = "id") Long id){
         return service.findById(id);
     }
 
     @GetMapping(produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     @Operation(
-            summary = "Busca todos os usuarios",
-            description = "Busca de todos os usuarios",
-            tags = {"People"},
+            summary = "Busca todos os livros",
+            description = "Busca de todos os livros",
+            tags = {"Livro"},
             responses = {
                     @ApiResponse(description = "Success", responseCode = "200",
                         content = {
@@ -65,7 +65,7 @@ public class PersonController {
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
             }
     )
-    public List<PersonVO> all (){
+    public List<BookVO> all (){
         return service.findAll();
     }
 
@@ -74,9 +74,9 @@ public class PersonController {
             consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
     )
     @Operation(
-            summary = "Cria uma pessoa",
-            description = "Cria uma pessoa",
-            tags = {"People"},
+            summary = "Cria uma livro",
+            description = "Cria uma livro",
+            tags = {"Livro"},
             responses = {
                     @ApiResponse(description = "Success", responseCode = "201",
                             content = @Content(schema = @Schema(implementation = PersonVO.class))),
@@ -86,18 +86,9 @@ public class PersonController {
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
             }
     )
-    public PersonVO create (@RequestBody PersonVO person){
-        return service.create(person);
+    public BookVO create (@RequestBody BookVO book){
+        return service.create(book);
     }
-
-//    @PostMapping(
-//            value = "/v2",
-//            produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
-//            consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
-//    )
-//    public PersonVOV2 createV2 (@RequestBody PersonVOV2 person){
-//        return service.createV2(person);
-//    }
 
     @PutMapping(
             value = "/{id}",
@@ -105,9 +96,9 @@ public class PersonController {
             consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
     )
     @Operation(
-            summary = "Atualiza uma pessoa",
-            description = "Atualiza uma pessoa",
-            tags = {"People"},
+            summary = "Atualiza uma livro",
+            description = "Atualiza uma livro",
+            tags = {"Livro"},
             responses = {
                     @ApiResponse(description = "Updated", responseCode = "200",
                             content = @Content(schema = @Schema(implementation = PersonVO.class))),
@@ -117,14 +108,14 @@ public class PersonController {
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
             }
     )
-    public PersonVO update(@RequestBody PersonVO person) {
-        return service.update(person);
+    public BookVO update(@RequestBody BookVO bookVO) {
+        return service.update(bookVO);
     }
 
     @DeleteMapping(value = "/{id}")
     @Operation(
-            summary = "Deleta uma pessoa",
-            description = "Deleta uma pessoa",
+            summary = "Deleta uma livro",
+            description = "Deleta uma livro",
             tags = {"People"},
             responses = {
                     @ApiResponse(description = "No content", responseCode = "204", content = @Content),
