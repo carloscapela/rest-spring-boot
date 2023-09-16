@@ -20,6 +20,7 @@ public class Book implements Serializable {
     private String author;
 
     @Column(nullable = false)
+    @Temporal(TemporalType.DATE)
     private Date launch_date;
 
     @Column(nullable = false)
