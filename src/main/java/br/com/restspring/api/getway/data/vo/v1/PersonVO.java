@@ -8,6 +8,7 @@ import org.springframework.hateoas.RepresentationModel;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.Date;
 
 @JsonPropertyOrder({"id", "key", "address", "firstName", "lastName", "gender"})
 public class PersonVO extends RepresentationModel<PersonVO> implements Serializable {
@@ -28,6 +29,8 @@ public class PersonVO extends RepresentationModel<PersonVO> implements Serializa
 
     //@JsonIgnore
     private String gender;
+
+    private Date brithDay;
 
     public PersonVO() {}
 
@@ -66,4 +69,8 @@ public class PersonVO extends RepresentationModel<PersonVO> implements Serializa
     public void setGender(String gender) {
         this.gender = gender;
     }
+
+    public Date getBrithDay() { return brithDay; }
+
+    public void setBrithDay(Date brithDay) { this.brithDay = brithDay; }
 }
