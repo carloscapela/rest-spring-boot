@@ -9,18 +9,20 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class OpenApiConfig {
     @Bean
-    public OpenAPI customOpenAPI () {
+    public OpenAPI customOpenAPI() {
         return new OpenAPI()
                 .info(
                         new Info()
                                 .title("RESTful API with Java 19 and Spring Boot 3")
                                 .version("v1")
-                                .description("Um exemplo de sistema feito no Spring Boot")
+                                .description("Este repositório tem a função de servir como consulta e analise" +
+                                        " para o curso o uso do Java Spring Boot, especialmente para o uso de melhores" +
+                                        " praticas e padrões em APIs com Java.")
                                 .termsOfService("")
                                 .license(
                                         new License()
-                                                .name("Apache 2.0")
-                                                .url("https://afap.ap.gov.br")
+                                                .name("Licença Pública Geral GNU")
+                                                .url("https://www.gnu.org/licenses/gpl-3.0.html")
                                 )
                 );
     }
