@@ -12,7 +12,7 @@
 	<artifactId>api.getway</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>api.getway</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Um exemplo de projeto APIRestFull em Spring Boot</description>
 	<properties>
 		<java.version>19</java.version>
 	</properties>
