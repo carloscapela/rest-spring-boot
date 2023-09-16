@@ -32,7 +32,7 @@ public class BookService {
     PersonMapper mapper;
 
     public List<BookVO> findAll() {
-        logger.info("Buscando pessoas List.");
+        logger.info("Buscando livros List.");
         var books = DozerMapper.parseListObjects(repository.findAll(), BookVO.class);
         books.stream()
                 .forEach(p -> p.add(
@@ -58,7 +58,7 @@ public class BookService {
     }
 
     public BookVO create(BookVO book) {
-        logger.info("Criando pessoa.");
+        logger.info("Criando livro.");
 
         var entity = DozerMapper.parseObject(book, Book.class);
 
@@ -73,7 +73,7 @@ public class BookService {
     }
 
     public BookVO update(BookVO bookVO) {
-        logger.info("Atualizando pessoa.");
+        logger.info("Atualizando livro.");
 
         var entity = repository.findById(bookVO.getKey())
                 .orElseThrow(() -> new ResourceNotFoundException("Nada encontrado"));
